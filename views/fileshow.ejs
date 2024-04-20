@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vs code</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+<body>
+  <div id="main">
+    <div id="left">
+      <div id="top">
+        <h1>Some Folder</h1>
+        <div class="icons">
+          <i id="fileicon" class="ri-file-fill" ></i>
+          <i id="foldericon" class="ri-folder-download-fill"></i>
+          <a href="/"><i class="ri-refresh-line"></i></a>
+          <i class="ri-file-copy-2-fill"></i>
+        </div>
+      </div>
+      <div class="fileform">
+        <form action="/filecreate">
+          <input type="text" name="filename" placeholder="filetext">
+        </form>
+      </div>
+      <div class="folderform">
+        <form action="/foldercreate">
+          <input type="text" name="foldername" placeholder="foldertext">
+        </form>
+      </div>
+      <div id="files">  
+      <% files.forEach(function(data){ %>
+        <div class="file">
+          <a href="/file/<%= data.name %>"><h1>
+         <%   if(data.isDirectory()){  %>
+                  <i class="ri-folder-download-fill"></i>
+         <%   } else { %>
+                  <i class="ri-file-fill"></i>
+        <% } %>
+         <%= data.name %>
+        </h1></a>
+          <div class="favicon">
+           <i class="ri-pencil-line"></i>
+           <i class="ri-delete-bin-line"></i>
+          </div>
+         </div>
+    <%  }) %>
+  </div>
+    </div>
+    <div id="right">
+      <div id="rheader">
+        <div class="opened">
+           <h3> <%= filename %><i class="ri-close-circle-line"></i></h3>
+        </div> 
+      </div>
+      <div class="fileopen">
+        <form action="content">
+          <textarea name="textarea" id="text"></textarea>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    var openfileform = 0;
+    var openfolderform = 0;
+    function donoband(){
+      document.querySelector(".fileform").style.display = "none";
+      document.querySelector(".folderform").style.display = "none";
+    }
+
+    document.querySelector("#fileicon")
+    .addEventListener("click", function(){
+      if(openfileform === 0 ){
+        document.querySelector(".fileform").style.display = "initial";
+        document.querySelector(".folderform").style.display = "none";
+        openfileform = 1;
+        openfolderform = 0;
+      }  
+      else if(openfileform === 1){
+        document.querySelector(".fileform").style.display = "none";
+        document.querySelector(".folderform").style.display = "none";
+        openfileform = 0;
+        openfolderform = 0;
+      } 
+      else if(openfileform === 0 || openfolderform === 1){
+        document.querySelector(".folderform").style.display = "none";
+        document.querySelector(".fileform").style.display = "initial";
+        openfileform = 1;
+        openfolderform = 0;
+      } 
+      else{
+        document.querySelector(".fileform").style.display = "none";
+        document.querySelector(".folderform").style.display = "none";
+        openfileform = 0;
+        openfolderform = 0;
+      }
+    })
+
+    
+      document.querySelector("#foldericon")
+    .addEventListener("click", function(){
+      if(openfolderform === 0){
+        document.querySelector(".fileform").style.display = "none";
+        document.querySelector(".folderform").style.display = "initial";
+        openfileform = 0;
+        openfolderform = 1;
+      }
+      else if(openfolderform === 1){
+        document.querySelector(".folderform").style.display = "none";
+        document.querySelector(".fileform").style.display = "none";
+        openfileform = 0;
+        openfolderform = 0;
+      }
+      else if(openfileform === 1 || openfolderform === 0){
+        document.querySelector(".folderform").style.display = "initial";
+        document.querySelector(".fileform").style.display = "none";
+        openfileform = 1;
+        openfolderform = 0;
+      }
+      else{
+        document.querySelector(".fileform").style.display = "none";
+        document.querySelector(".folderform").style.display = "none";
+        openfileform = 0;
+        openfolderform = 0;
+      }
+    })
+  </script>
+</body>
+</html>
